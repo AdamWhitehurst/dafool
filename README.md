@@ -6,7 +6,7 @@
 
 **Installation**
  
-Make sure [`pipenv`](https://docs.pipenv.org/en/latest/) is installed (this is a simplified virtualenvironment manager that works on both Unix and Windows systems):
-
-    pip install pipenv
+1. Clone this repo and navigate into the `dafool` directory
+2. Crate and activate a virtualenv for this project (I used pipenv, a simplified virtual environment manager that work son Unix and Windows systems).
+3. Run `./setup.sh` instide the `dafool` directory
 
