@@ -1,0 +1,7 @@
+
+<div class="comment-add-section card">
+    <form method='POST' action='{{ request.path }}comment/create' enctype='multipart/form-data'>{% csrf_token %}
+        {{ form.as_p }}
+        <input type='submit' class='btn btn-default' value='Create Post' />
+    </form>
+</div>

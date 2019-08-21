@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block main_body_section %}
+
+{% include 'partials/_top_bar.html' with location="home" %}
+
+    <div class="container content-inner">
+        <div class="main-col">
+            <section class="jumbo-card card">
+                {% include "partials/_home_page_card.html" with article=featured_article %}
+            </section>
+        </div>
+        <div class="cards row">
+            {% for a in row_articles %}
+                <div class="card">
+                    {% include "partials/_home_page_card.html" with article=a %} 
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

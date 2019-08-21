@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+{% load compress %}
+{% block main_body_section %}
+{% include 'partials/_top_bar.html' with location="ARTICLE" %}
+<div class="container article-content-inner">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="article-header">
+                <header>
+                    <div id="adv_text" class="adv-heading"></div>
+                    <h1>{{article.headline}}</h1>
+                    <!--<h2>You won't believe the specs on these new all-electric vehicles. </h2>-->
+                </header>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <main class="col-sm-7 col-md-8">
+            <div class="author-tagline author-inline">
+                <div class="author-and-date">
+                    <div class="author-byline">
+                        <div class="author-name"> {{article.byline}} </div>
+                        <div class="author-username">
+                            <a href="#">{{article.authors.0.username}}</a>
+                        </div>
+                    </div>
+                    <div class="article-pub-date">
+                        <div class="publication-date">
+                            {{article.publish_at|date:"M d, Y"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="article-body">
+                <div class="article-content">
+                    {{article.body|safe}}
+                </div>
+                <div class="article-disclosure">
+                    {{article.disclosure|safe}}
+                </div>
+            </section>
+                    {% include 'comments/_comment_list.html' %}
+        </main>
+        <aside class="col-sm-5 col-md-4 p-l">
+            <section class="related-tickers">
+                <div class="block-title">
+                    <hr>
+                    <h2>Stocks</h2>
+                </div>
+                <div id="tickers-container">
+                    <p>Loading Tickers ...</p>
+                </div>
+                <a class="btn btn-primary" id="ticker-refresh-btn" >REFRESH</a>
+            </section>
+            <section class="read-more-section">
+                <div class="block-title">
+                    <hr>
+                    <h2>Read More</h2>
+                </div>
+                <ul class="two-line-list">
+                    <li><a href="#">It is a long established fact that a reader</a></li>
+                    <li><a href="#">Many desktop publishing packages and web page editors now use</a></li>
+                    <li><a href="#">Contrary to popular belief, Lorem Ipsum is not simply random text</a></li>
+                    <li><a href="#">There are many variations of passa</a></li>
+                    <li><a href="#">If you are going to use a passage of Lorem Ipsum</a></li>
+                </ul>
+            </section>
+        </aside>
+    </div>
+</div>
+
+{%endblock%}
+
+{% block inline_js %}
+    {% compress js inline %}
+    <script src="{% static "js/article.js" %}"></script>
+    {% endcompress %}
+{% endblock %}

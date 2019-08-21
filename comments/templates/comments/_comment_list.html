@@ -1,0 +1,22 @@
+<div class="comments-header-section">
+    <i class="fa fa-plus add-comment-icon" aria-hidden="true"></i>
+    <h3 class="comments-header">Article Comments</h3>
+</div> 
+{% include 'comments/_comment_add.html' %}
+<div class="comment-list-container">
+{% for comment in comment_list %}
+    <li class="comment-list-item card">
+        <div class="comment-list-header">
+            <div class="comment-list-header-sub flex-left">
+                <h5 class="comment-list-item-name">{{comment.name}}</h5>
+                <h6 class="comment-list-post-date">{{comment.post_date}}</h6>
+            </div>
+                <a class="comment-list-icon" href="comment/delete/{{comment.id}}"><i class="fa fa-trash delete-comment-icon" aria-hidden="true"></i></a>
+        </div>
+
+        <hr>
+        <p>{{comment.body|safe}}</p>
+    <li>
+    <hr>
+{% endfor %}
+</div>
