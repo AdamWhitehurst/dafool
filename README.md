@@ -2,7 +2,7 @@
 
 **Overview**
 
-    This is a Django 2.2 example app featuring a homepage + article page. Article pages display article content retireved from a fake API and stock quote tickers from another fake API, as well as a Commenting feature providing the ability to post and delete comments as unauthenticated user. This commenting feature is a basic CRUD system built with Django models.
+This is a Django 2.2 example app featuring a homepage + article page. Article pages display article content retireved from a fake API and stock quote tickers from another fake API, as well as a Commenting feature providing the ability to post and delete comments as unauthenticated user. This commenting feature is a basic CRUD system built with Django models.
 
 **Installation**
  
