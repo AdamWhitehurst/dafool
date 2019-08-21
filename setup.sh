@@ -18,7 +18,7 @@ else
     echo
     echo '*************************************'
     echo 'Setup complete'
-    echo 'run python manage.py runserver_plus to start server'
+    echo 'run python manage.py runserver to start server'
     echo '*************************************'
     echo
     echo
