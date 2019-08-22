@@ -569,6 +569,12 @@ ul.two-line-list li a {
 .comment-add-section {
   display: none;
   padding: 1em;
+  align-items: stretch;
+  flex-direction: column;
+}
+
+.display-flex {
+  display: flex;
 }
 
 .comment-add-section p {
@@ -578,4 +584,12 @@ ul.two-line-list li a {
 .comment-add-section textarea,
 .comment-add-section input {
   flex: 1;
+}
+
+.markdown-notice {
+  text-align: center;
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 12px;
 }

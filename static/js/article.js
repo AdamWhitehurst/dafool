@@ -34,6 +34,7 @@ const tickerElemHTML = t => `
       </aside>
     </div>
 </div>`;
+
 const updateTickerContainer = tickersHTMLElems => {
   let container = $("#tickers-container");
   container.empty();
@@ -56,8 +57,15 @@ $(document).ready(function() {
   loadTickers();
 
   $(".add-comment-icon").click(e => {
-    $(".comment-add-section").toggle();
+    $(".comment-add-section").addClass("display-flex");
   });
 
   $("#ticker-refresh-btn").click(loadTickers);
+  $(".markdown-content").each(function() {
+    let contentToMarkdown = $(this).html();
+
+    let markeddownContent = marked(contentToMarkdown);
+
+    $(this).html(markeddownContent);
+  });
 });
