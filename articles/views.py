@@ -5,6 +5,7 @@ from comments.models import Comment
 from comments.forms import CommentForm
 from comments.views import comment_create
 from articles.api import get_article_by_uuid
+from tickers.api import get_ticker
 
 
 def article_view(request, uuid):
@@ -26,7 +27,17 @@ def article_view(request, uuid):
         if created:
             print("Yeah")
 
+    tickers = []
+    # Query tickers
+    for ticker in target_article.get("instruments"):
+        tickers.append(get_ticker(ticker.get("company_name")))
+
     # Compose context
-    context = {"article": target_article, "comment_list": comment_list, "form": form}
+    context = {
+        "article": target_article,
+        "comment_list": comment_list,
+        "form": form,
+        "ticker_list": tickers,
+    }
 
     return render(request, "articles/article.html", context=context)

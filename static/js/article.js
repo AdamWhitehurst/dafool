@@ -54,8 +54,6 @@ const loadTickers = () => {
 };
 
 $(document).ready(function() {
-  loadTickers();
-
   $(".add-comment-icon").click(e => {
     $(".comment-add-section").addClass("display-flex");
   });

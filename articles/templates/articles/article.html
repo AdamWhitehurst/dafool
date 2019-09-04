@@ -49,9 +49,11 @@
                     <h2>Stocks</h2>
                 </div>
                 <div id="tickers-container">
-                    <p>Loading Tickers ...</p>
+                    {% for ticker in ticker_list %}
+                        {% include 'articles/partials/_ticker.html' %}
+                    {% endfor %}
                 </div>
-                <a class="btn btn-primary" id="ticker-refresh-btn" >REFRESH</a>
+                <a class="btn btn-primary" id="ticker-refresh-btn">REFRESH</a>
             </section>
             <section class="read-more-section">
                 <div class="block-title">

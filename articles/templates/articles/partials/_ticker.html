@@ -1,0 +1,35 @@
+{% load mathfilters %}
+
+<div class="ticker-row">
+  <span class="image-wrap">
+      <img src="https://pbs.twimg.com/profile_images/563716194323025921/OthWJnik_400x400.png" class="img-responsive" alt="">
+    </span>
+      
+      <div class="ticker-text-wrap">
+        <h3>{{ticker.CompanyName}}</h3>
+        <h4>
+            <span class="ticker">
+                <a title="{{ticker.CompanyName}} Stock Quote" href="#">
+                    NASDAQ:<span class="symbol">{{ticker.Symbol}}</span>
+                </a>
+            </span>
+        </h4>
+      <aside class="price-quote-container">
+          <h4 class="current-price">
+            ${{ticker.CurrentPrice.Amount}}
+          </h4>
+          <h4 class="price-change-amount 
+                    {% if ticker.Change.Amount >= 0 %} price-pos
+                    {% else %} price-neg
+                    {% endif %}">
+              &nbsp; ${{ticker.Change.Amount|abs}}
+          </h4>
+          <h4 class="price-change-percent
+                    {% if ticker.PercentChange.Value >= 0 %} price-pos
+                    {% else %} price-neg
+                    {% endif %}">
+          &nbsp; ({{ticker.PercentChange.Value|abs|mul:100|floatformat:2}}%)
+          </h4>
+      </aside>
+    </div>
+</div>
