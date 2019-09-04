@@ -5,17 +5,13 @@ from random import randrange
 featured_tag_slug = "10-promise"
 
 
-def get_recent_article_array(recent_articles_count, can_be_featured=False):
+def get_recent_article_array(amount, can_be_featured=False):
     recent_articles = []
 
-    while len(recent_articles) < recent_articles_count:
-        new_recent_article = get_recent_article(can_be_featured)
+    while len(recent_articles) < amount:
+        new_recent_article = get_random_article(can_be_featured=can_be_featured)
 
-        already_added = False
-        for other_article in recent_articles:
-            if new_recent_article.get("uuid") == other_article.get("uuid"):
-                already_added = True
-                break
+        already_added = check_if_in_collection(new_recent_article, recent_articles)
 
         if not already_added:
             recent_articles.append(new_recent_article)
@@ -23,9 +19,20 @@ def get_recent_article_array(recent_articles_count, can_be_featured=False):
     return recent_articles
 
 
-def get_recent_article(can_be_featured=False):
+def check_if_in_collection(article, article_collection):
+    for other_article in article_collection:
+        if article.get("uuid") == other_article.get("uuid"):
+            return True
+    return False
+
+
+def get_random_article(article_list=None, can_be_featured=False):
+    global all_articles
+
+    if article_list is None:
+        article_list = all_articles
+
     # Get a random index
-    article_list = list(uuid_to_article_dict.values())
     index = randrange(len(article_list))
     # Get article at random index
     recent_article = article_list[index]
@@ -43,6 +50,24 @@ def get_article_by_uuid(uuid):
     if uuid in uuid_to_article_dict:
         return uuid_to_article_dict[uuid]
     return None
+
+
+def get_similar_article_array(collection_type, amount):
+    similar_articles = []
+    if collection_type in articles_by_collection_dict:
+        while len(similar_articles) < amount:
+            new_similar_article = get_random_article(
+                article_list=articles_by_collection_dict[collection_type],
+                can_be_featured=True,
+            )
+
+            already_added = check_if_in_collection(
+                new_similar_article, similar_articles
+            )
+
+            if not already_added:
+                similar_articles.append(new_similar_article)
+    return similar_articles
 
 
 def check_featured_article(article):
@@ -67,14 +92,17 @@ def set_new_featured_article(new_featured_tag_slug):
 
 
 def initialize_articles_api():
-    # Intialize uuid-to-article dictionary
-    u_t_a_d = {}
     # Load Contents from JSON
     content_json = open("content_api.json")
     formatted = json.load(content_json)
-    articles = formatted["results"]
+    return formatted["results"]
+
+
+def initialize_uuid_dict(articles_list):
+    # Intialize uuid-to-article dictionary
+    u_t_a_d = {}
     # Fill uuid-to-article dictionary
-    for article in articles:
+    for article in articles_list:
         u_t_a_d[article.get("uuid")] = article
         # Check if article is featured Article's uuid
         check_featured_article(article)
@@ -82,5 +110,22 @@ def initialize_articles_api():
     return u_t_a_d
 
 
+def initialize_collections_dict(articles_list):
+    collection_types = {}
+    for article in articles_list:
+        collection = article.get("collection")
+        c_type = None
+        if collection:
+            c_type = collection.get("slug")
+        if c_type is not None:
+            if c_type not in collection_types:
+                collection_types[c_type] = []
+            collection_types[c_type].append(article)
+
+    return collection_types
+
+
 featured_article = None
-uuid_to_article_dict = initialize_articles_api()
+all_articles = initialize_articles_api()
+uuid_to_article_dict = initialize_uuid_dict(all_articles)
+articles_by_collection_dict = initialize_collections_dict(all_articles)
